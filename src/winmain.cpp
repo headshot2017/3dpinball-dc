@@ -75,7 +75,7 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 
 		if (pb::init())
 		{
-			PrintFatalError("Could not load game data:\n%s file is missing.\n", DatFileName.c_str());
+			PrintFatalError("Could not load game data:\n%s file is missing.\n", pinball::make_path_name(DatFileName).c_str());
 		}
 	}
 
@@ -182,8 +182,16 @@ void winmain::PrintFatalError(const char *message, ...)
 	vsprintf(buf, message, args);
 	va_end(args);
 
-	bfont_draw_str(vram_s + 0*640+0, 640, 1, buf);
-	//printf("\nPress A to exit.\n");
+	int y = 32;
+	char* token = strtok(buf, "\n");
+	while (token)
+	{
+		bfont_draw_str(vram_s + y*640+32, 640, 1, token);
+		y += 32;
+		token = strtok(NULL, "\n");
+	}
+	y += 48;
+	bfont_draw_str(vram_s + y*640+32, 640, 1, "Press A to exit");
 
 	while (true)
 	{
@@ -195,5 +203,5 @@ void winmain::PrintFatalError(const char *message, ...)
 		dc_graphics::SwapBuffers();
 	}
 
-	exit(EXIT_FAILURE);
+	arch_exit();
 }
