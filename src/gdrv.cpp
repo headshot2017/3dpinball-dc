@@ -137,9 +137,9 @@ int gdrv::display_palette(ColorRgba* plt)
 	{
 		if (plt)
 		{
-			pltDst->rgba.Blue = pltSrc->rgba.Red;
+			pltDst->rgba.Blue = pltSrc->rgba.Blue;
 			pltDst->rgba.Green = pltSrc->rgba.Green;
-			pltDst->rgba.Red = pltSrc->rgba.Blue;
+			pltDst->rgba.Red = pltSrc->rgba.Red;
 		}
 		pltDst->rgba.Alpha = 0xFF;
 		pltSrc++;

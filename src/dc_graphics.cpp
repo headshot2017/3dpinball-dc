@@ -26,9 +26,9 @@ void dc_graphics::UpdateFull()
 		{
 			Rgba c = render::vscreen->BmpBufPtr1[y*render::vscreen->Width+x].rgba;
 			vram_s[y*640+x] =
-				((c.Red >> 3) << 12)
-				| ((c.Green >> 2) << 5)
-				| ((c.Blue >> 3) << 0);
+				((c.Red >> 3))
+				| ((c.Green & 0xFC) << 3)
+				| ((c.Blue & 0xF8) << 8);
 		}
 	}
 }
@@ -44,9 +44,9 @@ void dc_graphics::Update()
 			{
 				Rgba c = render::vscreen->BmpBufPtr1[y*render::vscreen->Width+x].rgba;
 				vram_s[y*640+x] =
-					((c.Red >> 3) << 12)
-					| ((c.Green >> 2) << 5)
-					| ((c.Blue >> 3) << 0);
+					((c.Red >> 3))
+					| ((c.Green & 0xFC) << 3)
+					| ((c.Blue & 0xF8) << 8);
 			}
 		}
 	}
