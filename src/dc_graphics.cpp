@@ -15,7 +15,6 @@ void dc_graphics::Initialize()
 void dc_graphics::SwapBuffers()
 {
 	vid_waitvbl();
-	vid_waitvbl();
 }
 
 void dc_graphics::UpdateFull()
