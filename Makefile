@@ -41,7 +41,6 @@ run: $(TARGET)
 
 # Creates a distributable/release ELF which strips away its debug symbols
 dist: $(TARGET)
-	-rm -f $(OBJS)
 	$(KOS_STRIP) $(TARGET)
 
 cdi: $(TARGET) cd_root
