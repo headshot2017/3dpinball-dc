@@ -15,6 +15,8 @@ static unsigned int nudgeKey, launchKey, leftKey, rightKey, upKey;
 
 void dc_input::Initialize()
 {
+	cont_btn_callback(0, CONT_START | CONT_A | CONT_B | CONT_X | CONT_Y, (cont_btn_callback_t)arch_exit);
+
 	leftKey = CONT_DPAD_LEFT | CONT_X;
 	rightKey = CONT_DPAD_RIGHT | CONT_B;
 	launchKey = CONT_DPAD_DOWN | CONT_A;
