@@ -20,12 +20,14 @@ void dc_graphics::SwapBuffers()
 
 void dc_graphics::UpdateFull()
 {
+	int startPos = (480/2 - render::vscreen->Height/2) * 640 + (640/2 - render::vscreen->Width/2);
+
 	for (int y=0; y<render::vscreen->Height; y++)
 	{
 		for (int x=0; x<render::vscreen->Width; x++)
 		{
 			Rgba c = render::vscreen->BmpBufPtr1[y*render::vscreen->Width+x].rgba;
-			vram_s[y*640+x] =
+			vram_s[startPos + y*640+x] =
 				((c.Red >> 3))
 				| ((c.Green & 0xFC) << 3)
 				| ((c.Blue & 0xF8) << 8);
@@ -35,6 +37,8 @@ void dc_graphics::UpdateFull()
 
 void dc_graphics::Update()
 {
+	int startPos = (480/2 - render::vscreen->Height/2) * 640 + (640/2 - render::vscreen->Width/2);
+
 	for (uint32_t i=0; i<render::get_dirty_regions().size(); i++)
 	{
 		const rectangle_type& dirty = render::get_dirty_regions()[i];
@@ -43,7 +47,7 @@ void dc_graphics::Update()
 			for (int x=dirty.XPosition; x<dirty.XPosition + dirty.Width; x++)
 			{
 				Rgba c = render::vscreen->BmpBufPtr1[y*render::vscreen->Width+x].rgba;
-				vram_s[y*640+x] =
+				vram_s[startPos + y*640+x] =
 					((c.Red >> 3))
 					| ((c.Green & 0xFC) << 3)
 					| ((c.Blue & 0xF8) << 8);
