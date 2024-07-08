@@ -289,3 +289,4 @@ cd_root/*.INF
 cd_root/*.BMP
 cd_root/*.MID
 cd_root/*.MDS
+cd_root/SOUND/
