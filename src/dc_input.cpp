@@ -1,5 +1,6 @@
 #include "dc_input.h"
 
+#include <kos.h>
 #include <dc/maple.h>
 #include <dc/maple/controller.h>
 
