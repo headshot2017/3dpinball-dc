@@ -13,6 +13,9 @@ bool dc_input::dcRightTriggerDown = false;
 bool dc_input::dcRightTriggerUp = false;
 
 static unsigned int nudgeKey, launchKey, leftKey, rightKey, upKey;
+static unsigned int lastBtns = 0;
+static bool lastLT = false;
+static bool lastRT = false;
 
 void dc_input::Initialize()
 {
@@ -27,10 +30,6 @@ void dc_input::Initialize()
 
 void dc_input::ScanPads()
 {
-	static unsigned int lastBtns = 0;
-	static bool lastLT = false;
-	static bool lastRT = false;
-
 	maple_device_t *cont;
     cont_state_t *state;
 
@@ -50,6 +49,14 @@ void dc_input::ScanPads()
 	lastBtns = state->buttons;
 	lastLT = state->ltrig >= 64;
 	lastRT = state->rtrig >= 64;
+}
+
+void dc_input::Clear()
+{
+	dcButtonsDown = 0;
+	dcButtonsUp = 0;
+	dcButtonsHeld = 0;
+	lastBtns = 0;
 }
 
 bool dc_input::Exit()
@@ -127,7 +134,12 @@ bool dc_input::NudgeUpUp()
 	return (dcButtonsHeld & nudgeKey) && (dcButtonsUp & upKey);
 }
 
-bool dc_input::SkipError()
+bool dc_input::Button1()
 {
 	return dcButtonsDown & CONT_A;
+}
+
+bool dc_input::Button2()
+{
+	return dcButtonsDown & CONT_B;
 }

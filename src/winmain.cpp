@@ -54,13 +54,42 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 
 	// Check for full tilt .dat file and switch to it automatically
 
+	auto pinballDat = fopen(pinball::make_path_name(DatFileName).c_str(), "rb");
+	bool hasPinball = !!(pinballDat);
+	if (pinballDat) fclose(pinballDat);
+
 	auto cadetFilePath = pinball::make_path_name("CADET.DAT");
 	auto cadetDat = fopen(cadetFilePath.c_str(), "r");
+	bool hasCadet = !!(cadetDat);
 	if (cadetDat)
 	{
 		fclose(cadetDat);
-		DatFileName = "CADET.DAT";
-		pb::FullTiltMode = true;
+	}
+
+	if (hasPinball && hasCadet)
+	{
+		// pick a game
+		bfont_draw_str(vram_s + 32*640+32, 640, 1, "Press A to play 3D Pinball Space Cadet");
+		bfont_draw_str(vram_s + 64*640+32, 640, 1, "Press B to play Full Tilt! Pinball");
+
+		while (true)
+		{
+			dc_input::ScanPads();
+
+			if (dc_input::Button1())
+				break;
+			if (dc_input::Button2())
+			{
+				DatFileName = "CADET.DAT";
+				pb::FullTiltMode = true;
+				break;
+			}
+
+			dc_graphics::SwapBuffers();
+		}
+
+		dc_input::Clear();
+		vid_clear(0,0,0);
 	}
 
 	// PB init from message handler
@@ -197,7 +226,7 @@ void winmain::PrintFatalError(const char *message, ...)
 	{
 		dc_input::ScanPads();
 
-		if (dc_input::SkipError())
+		if (dc_input::Button1())
 			break;
 
 		dc_graphics::SwapBuffers();
