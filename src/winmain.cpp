@@ -142,7 +142,7 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 		{
 			// Update game when not paused
 
-			pb::frame(1000.0f / 120.0f);
+			pb::frame(1000.0f / 60.0f);
 		}
 
 		// Copy game screen buffer to texture
