@@ -32,7 +32,8 @@ int ToVariableLen(uint32_t value, uint32_t& dst)
 int midi::play_pb_theme()
 {
 	// Todo: add support for tracks 2 and 3
-	return play_track(track1);
+	return 1;
+	//return play_track(track1);
 }
 
 int midi::music_stop()
@@ -48,6 +49,7 @@ int midi::music_stop()
 int midi::music_init()
 {
 	active_track = nullptr;
+	return true;
 
 	/*
 	if (pb::FullTiltMode)
@@ -57,7 +59,6 @@ int midi::music_init()
 		track3 = load_track("TABA3");
 	}
 	else
-	*/
 	{
 		// 3DPB has only one music track. PINBALL2.MID is a bitmap font, in the same format as PB_MSGFT.bin
 		track1 = load_track("PINBALL");
@@ -68,6 +69,7 @@ int midi::music_init()
 	if (!track3)
 		track3 = track1;
 	return track1 != nullptr;
+	*/
 }
 
 void midi::music_shutdown()
@@ -86,9 +88,6 @@ void midi::music_shutdown()
 void* midi::load_track(std::string fileName)
 {
 	void* audio = nullptr;
-
-	//if (fileName == "PINBALL")
-		//audio = Mix_LoadMUS_RW(SDL_RWFromConstMem(PINBALL_ogg, size_PINBALL_ogg), 1);
 
 	/*
 	if (pb::FullTiltMode)

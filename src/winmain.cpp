@@ -61,10 +61,7 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 	auto cadetFilePath = pinball::make_path_name("CADET.DAT");
 	auto cadetDat = fopen(cadetFilePath.c_str(), "r");
 	bool hasCadet = !!(cadetDat);
-	if (cadetDat)
-	{
-		fclose(cadetDat);
-	}
+	if (cadetDat) fclose(cadetDat);
 
 	if (!hasPinball && hasCadet)
 	{
@@ -74,8 +71,7 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 	else if (hasPinball && hasCadet)
 	{
 		// pick a game
-		bfont_draw_str(vram_s + 32*640+32, 640, 1, "Press A to play 3D Pinball Space Cadet");
-		bfont_draw_str(vram_s + 64*640+32, 640, 1, "Press B to play Full Tilt! Pinball");
+		dc_graphics::ShowSplash("Press A to play 3D Pinball Space Cadet\nPress B to play Full Tilt! Pinball");
 
 		while (true)
 		{
@@ -96,6 +92,9 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 		dc_input::Clear();
 		vid_clear(0,0,0);
 	}
+
+	std::string gameName = (pb::FullTiltMode) ? "Full Tilt! Pinball" : "3D Pinball";
+	dc_graphics::ShowSplash("Loading " + gameName);
 
 	// PB init from message handler
 
@@ -216,16 +215,8 @@ void winmain::PrintFatalError(const char *message, ...)
 	vsprintf(buf, message, args);
 	va_end(args);
 
-	int y = 32;
-	char* token = strtok(buf, "\n");
-	while (token)
-	{
-		bfont_draw_str(vram_s + y*640+32, 640, 1, token);
-		y += 32;
-		token = strtok(NULL, "\n");
-	}
-	y += 48;
-	bfont_draw_str(vram_s + y*640+32, 640, 1, "Press A to exit");
+	strcat(buf, "\nPress A to exit");
+	dc_graphics::ShowSplash(buf);
 
 	while (true)
 	{
