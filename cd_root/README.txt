@@ -1,1 +1,2 @@
-Place game data from 3D Pinball Space Cadet, or from the Space Cadet table in Full Tilt! Pinball here
+Place game data from 3D Pinball Space Cadet, or from the Space Cadet table in Full Tilt! Pinball here.
+You can also place both games here and you'll be given the choice to select which game you want to play.
