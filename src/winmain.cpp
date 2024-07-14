@@ -66,7 +66,12 @@ int winmain::WinMain(LPCSTR lpCmdLine)
 		fclose(cadetDat);
 	}
 
-	if (hasPinball && hasCadet)
+	if (!hasPinball && hasCadet)
+	{
+		DatFileName = "CADET.DAT";
+		pb::FullTiltMode = true;
+	}
+	else if (hasPinball && hasCadet)
 	{
 		// pick a game
 		bfont_draw_str(vram_s + 32*640+32, 640, 1, "Press A to play 3D Pinball Space Cadet");
