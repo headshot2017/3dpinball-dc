@@ -46,7 +46,7 @@ dist: $(TARGET)
 cdi: $(TARGET) cd_root
 	elf2bin $(TARGET)
 	scramble $(basename $(TARGET)).bin cd_root/1ST_READ.BIN
-	makeip -g "3D PINBALL" -f IP.BIN 
+	makeip -l logo.png -g "3D PINBALL" -f IP.BIN
 	makedisc $(basename $(TARGET)).cdi cd_root IP.BIN
 
 cd_root:
