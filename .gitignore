@@ -282,6 +282,7 @@ ReleaseWinXp/
 *.elf
 *.bin
 *.cdi
+*.img
 cd_root/*.WAV
 cd_root/*.DAT
 cd_root/*.EXE

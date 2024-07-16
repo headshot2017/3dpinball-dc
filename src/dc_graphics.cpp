@@ -16,7 +16,7 @@ void dc_graphics::Initialize()
 	// splash image is 320x222 RGB565
 	splash_raw = new uint16_t[320*222];
 
-	FILE* f = fopen("/cd/splash.raw", "rb");
+	FILE* f = fopen("/rd/splash.raw", "rb");
 	fread(splash_raw, 320*222*2, 1, f);
 	fclose(f);
 }

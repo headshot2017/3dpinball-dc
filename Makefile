@@ -18,7 +18,8 @@ LIBS         := -lADX
 
 # Optional path to a directory of resources to bundle within your ELF binary.
 # Its contents are accessible via the "/rd/" virtual directory at runtime.
-#KOS_ROMDISK_DIR = romdisk
+KOS_ROMDISK_DIR = romdisk
+OBJS           += romdisk.o
 
 # Main rule which forces our ELF binary to be built
 all: rm-elf $(TARGET)
