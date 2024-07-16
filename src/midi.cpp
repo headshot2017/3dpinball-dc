@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "midi.h"
 
-
 #include "pb.h"
 #include "pinball.h"
+#include "libadx.h"
+#include "snddrv.h"
 
 std::vector<void*> midi::LoadedTracks{};
 void *midi::track1, *midi::track2, *midi::track3, *midi::active_track, *midi::NextTrack;
@@ -32,6 +33,11 @@ int ToVariableLen(uint32_t value, uint32_t& dst)
 int midi::play_pb_theme()
 {
 	// Todo: add support for tracks 2 and 3
+	adx_dec("/cd/PINBALL.adx", 1);
+
+	// Wait for the stream to start
+    while (snddrv.drv_status != SNDDRV_STATUS_STREAMING) thd_pass();
+
 	return 1;
 	//return play_track(track1);
 }
@@ -42,6 +48,8 @@ int midi::music_stop()
 	{
 		active_track = nullptr;
 	}
+
+	adx_stop();
 
 	return true;
 }
@@ -76,6 +84,8 @@ void midi::music_shutdown()
 {
 	//if (active_track)
 		//Mix_HaltMusic();
+
+	adx_stop();
 
 	for (auto midi : LoadedTracks)
 	{

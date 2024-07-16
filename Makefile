@@ -13,6 +13,9 @@ CPP_FILES    := $(foreach dir,$(SOURCE_DIRS),$(wildcard $(dir)/*.cpp))
 C_FILES      := $(foreach dir,$(SOURCE_DIRS),$(wildcard $(dir)/*.c))
 OBJS         := $(C_FILES:%.c=%.o) $(CPP_FILES:%.cpp=%.o)
 
+CXXFLAGS     := -IlibADXplay/LibADX
+LIBS         := -lADX
+
 # Optional path to a directory of resources to bundle within your ELF binary.
 # Its contents are accessible via the "/rd/" virtual directory at runtime.
 #KOS_ROMDISK_DIR = romdisk
@@ -33,7 +36,7 @@ rm-elf:
 
 # Invokes the compiler to build the target from our object files
 $(TARGET): $(OBJS)
-	kos-c++ -o $(TARGET) $(OBJS)
+	kos-c++ -o $(TARGET) $(OBJS) $(LIBS)
 
 # Attempts to run the target using the configured loader application
 run: $(TARGET)

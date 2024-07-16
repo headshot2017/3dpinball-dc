@@ -6,6 +6,10 @@ Port of 3D Pinball - Space Cadet to the Sega Dreamcast, based on the [decompilat
 
 Built with [DreamSDK](https://github.com/dreamsdk/dreamsdk)
 
+Libraries used:
+* LibADX: https://dcemulation.org/phpBB/viewtopic.php?t=101638
+  * With some modifications to compile on latest KallistiOS
+
 ## Controls
 * Paddles: DPad Left-Right / X/B / LT/RT
 * Launch ball: DPad Down / A
